@@ -1,0 +1,91 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?uvtllu');
+  src:  url('../fonts/icomoon.eot?uvtllu#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?uvtllu') format('truetype'),
+    url('../fonts/icomoon.woff?uvtllu') format('woff'),
+    url('../fonts/icomoon.svg?uvtllu#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-star:before {
+  content: "\e900";
+  color: #999;
+}
+.icon-time:before {
+  content: "\e901";
+  color: #999;
+  font-size: 12px;
+}
+.icon-house:before {
+  content: "\e902";
+  color: #999;
+}
+.icon-setting:before {
+  content: "\e903";
+  color: #999;
+}
+.icon-book:before {
+  content: "\e904";
+  color: #707070;
+}
+.icon-photo:before {
+  content: "\e906";
+  color: #999;
+}
+.icon-zhuanzai:before {
+  content: "\e907";
+}
+.icon-replay:before {
+  content: "\e908";
+  color: #999;
+}
+.icon-yanjing:before {
+  content: "\e909";
+  color: #999;
+  font-size: 12px;
+}
+.icon-qipao:before {
+  content: "\e90a";
+  color: #999;
+}
+.icon-penail:before {
+  content: "\e916";
+  color: #999;
+}
+.icon-lingsheng:before {
+  content: "\e917";
+  color: #999;
+}
+.icon-icon-email:before {
+  content: "\e918";
+  color: #999;
+}
+.icon-icon-wexin:before {
+  content: "\e919";
+  color: #a0b5d5;
+}
+.icon-icon-weibo:before {
+  content: "\e91a";
+  color: #a0b5d5;
+}
+.icon-icon-qq:before {
+  content: "\e91b";
+  color: #a0b5d5;
+}

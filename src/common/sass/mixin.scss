@@ -1,0 +1,85 @@
+body, html {
+	line-height: 1;
+	height:100%;
+	font-family: 'PingFang SC','STheitiSC-Light','Helvetica-Light',arial,sans-serif;
+	background: #eee;
+}
+
+
+@mixin ellipsis($line:1){
+  @if $line==1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    @else {
+        display: -webkit-box;
+        -webkit-line-clamp: $line;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+
+@mixin clearfix {
+  // display: inline-block;
+  &:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+
+@mixin borderone($color:#f0f0f0){
+	position:relative;
+	&:before {
+		display:block;
+		position:absolute;
+		left: 0;
+		top:0;
+		width:100%;
+		border-top:1px solid $color;
+		content:'';
+	}
+}
+
+@mixin borderone-bt($color:#f0f0f0){
+	position:relative;
+	&:before {
+		display:block;
+		position:absolute;
+		left: 0;
+		bottom:0;
+		width:100%;
+		border-bottom:1px solid $color;
+		content:'';
+	}
+}
+
+@media (-webkit-min-device-pixel-ratio:1.5),(min-device-pixel-ratio:1.5){
+	.borderone ,.borderone-bt {
+		&:before {
+			-webkit-transform:scaleY(0.7);
+			transform:scaleY(0.7);
+		}
+	}
+}
+
+@media (-webkit-min-device-pixel-ratio:2),(min-device-pixel-ratio:2){
+	.borderone ,.borderone-bt {
+		&:before{
+			-webkit-transform:scaleY(0.5);
+			transform:scaleY(0.5);
+		}
+	}
+}
+
+@mixin border-none(){
+	&:before {
+		display:none;
+	}
+}
