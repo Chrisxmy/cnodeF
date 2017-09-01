@@ -16,7 +16,6 @@
         </ul>
         <ul class='cardList' v-if='topics && topics.length'>
             <router-link :to="{name: 'topicDetail', query:{topic:item._id}}" v-for='(item, index) in topics' tag='li' :key='index'>
-                <span class='from'>来自内容：分享</span>
                 <div class='person'>
                     <span class='photo'>
                         <img src='../common/img/photo.png'>
@@ -85,7 +84,7 @@ export default {
     li {
         cursor: pointer;
         background: #fff;
-        padding: 20px 20px 10px 20px;
+        padding: 20px 20px 5px 20px;
         font-size: 16px;
         display: block;
         border-radius: 6px;
@@ -129,11 +128,11 @@ export default {
         }
         .icon {
             font-size: 0;
-            margin: 12px 0;
+            margin: 12px 0 5px 0;
             span {
                 display: inline-block;
                 vertical-align: bottom;
-                font-size: 14px;
+                font-size: 12px;
                 color: #b9c7dd;
                 span {
                     margin-right: 5px;

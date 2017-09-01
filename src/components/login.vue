@@ -152,6 +152,11 @@ export default {
         padding-left: 20px;
         margin-bottom: 10px;
         font-size: 12px;
+        transition: .4s;
+        &:focus{
+          border-color:#1892ed;
+          box-shadow: 0px 0px 1px #1892ed;
+        }
       }
     }
   }

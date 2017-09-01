@@ -108,12 +108,17 @@ export default {
       padding: 10px 20px;
       border-bottom: 1px solid #eee;
       h2 {
-        line-height: 2;
+        line-height: 1.5;
         font-size: 24px;
       }
       p {
         color: #999;
-        font-size: 14px;
+        font-size: 12px;
+        margin-bottom:20px;
+      }
+      img{
+        width:100px;
+        height: 100px;
       }
     }
     .artical {

@@ -23,9 +23,12 @@
         </li>
       </ul>
     </header>
-    <div class='content' >
+    <div class='content'>
       <div class='aside-left'>
-      <router-view :topics='topics'></router-view>
+        <transition name='fade' mode='out-in'>
+        <router-view :topics='topics'></router-view>
+        </transition>
+        <pagination :total="total" :display='display' :current-page='current' @pagechange="getAllTopics" v-if='pageShow'></pagination>
       </div>
       <div class='aside-right'>
         <span class='name'></span>
@@ -37,12 +40,22 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
+import pagination from '../base/pagination'
 export default {
   data() {
     return {
       userInfo: '',
       topics: [],
-      show: true
+      show: true,
+      total: 7,
+      display: 5,
+      current: 1,
+      pageShow: true
+    }
+  },
+  watch: {
+    '$route'(path) {
+      path.name === 'topicDetail' ? this.pageShow = false : this.pageShow = true
     }
   },
   computed: {
@@ -70,13 +83,15 @@ export default {
       this.$store.dispatch('getLoginInfo', '')
       this.userInfo = ''
     },
-    getAllTopics() {
-      let url = '/api/topic'
+    getAllTopics(pageNumber = 1, pageSize = 5) {
+      --pageNumber
+      let url = `/api/topic?pageNumber=${pageNumber}&pageSize=${pageSize}`
       axios.get(url).then(res => {
         if (res) res = res.data
         if (res.code === 0) {
           this.topics = res.topics
-          console.log(this.topics)
+          console.log(res.count)
+          this.total = res.count
         }
       })
     }
@@ -87,6 +102,7 @@ export default {
     console.log(1)
   },
   components: {
+    pagination
   }
 }
 </script>
@@ -97,23 +113,26 @@ export default {
 @import '../common/sass/mixin.scss';
 .index {
   header {
+    position: fixed;
+    right:0;
+    left:0;
+    top:0;
     display: flex;
     justify-content: space-between;
     background: $color-background;
     min-height: 50px;
     padding: 0 140px;
     box-shadow: 0px 1px 1px #ccc;
-    margin-bottom: 15px;
     .log {
       background: url('../common/img/logo.png') no-repeat;
       background-position: center;
       height: 50px;
       width: 100px;
     }
-    .write{
+    .write {
       padding-top: 20px;
-      span{
-          font-size:24px;
+      span {
+        font-size: 24px;
       }
     }
     .login {
@@ -143,7 +162,7 @@ export default {
     }
   }
   .content {
-    margin: 0 140px;
+    margin: 65px 140px 0px 140px;
     display: flex;
     justify-content: space-between;
     .aside-left {
@@ -188,19 +207,13 @@ export default {
   }
   .fade-enter-active,
   .fade-leave-active {
-    transition: opacity .5s
+    transition: opacity .4s
   }
   .fade-enter,
-  .fade-leave-to/* .fade-leave-active in below version 2.1.8 */
+  .fade-leave-to
   {
     opacity: 0
   }
-  .fade-enter-active, .fade-leave-active {
-  transition: all .3s
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateX(100%)
-}
+  
 }
 </style>

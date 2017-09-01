@@ -89,16 +89,20 @@ export default {
       width: 65%
     }
     span:nth-of-type(3) {
-      border: 1px solid #ccc;
+      border: 1px solid #333;
       padding: 8px 15px;
       border-radius: 6px;
       opacity: 0.6;
       cursor: pointer;
+      transition: .4s;
+      &:hover{
+        border-color: #1892ed
+      }
     }
   }
   #editor {
     margin: auto;
-    width: 60%;
+    width: 70%;
     height: 580px;
     input {
       outline: none;

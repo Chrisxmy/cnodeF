@@ -73,11 +73,11 @@
         type: String
       },
       bottomText: {
-        default: '点击或拖拽图片以修改',
+        default: '点击或拖拽图片未题图',
         type: String
       },
       placeholder: {
-        default: '点击或拖拽选择图片',
+        default: '点击或拖拽图片为题图',
         type: String
       },
       value: {
