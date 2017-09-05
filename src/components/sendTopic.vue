@@ -1,7 +1,7 @@
     <template>
   <div class='artical'>
     <header>
-      <span class='icon-penail'></span>
+      <span class='icon-pencil'></span>
       <span>写文章</span>
       <span @click='send'>发布</span>
     </header>
@@ -96,7 +96,8 @@ export default {
       cursor: pointer;
       transition: .4s;
       &:hover{
-        border-color: #1892ed
+        border-color: #1892ed;
+        color: #1892ed;
       }
     }
   }

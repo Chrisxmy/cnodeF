@@ -3,7 +3,7 @@
     <header>
       <div class='log'></div>
       <router-link :to="{name: 'sendTopic'}" class='write' tag='div'>
-        <span class='icon-penail'></span>
+        <span class='icon-pencil'></span>
       </router-link>
       <div class='login' v-if='!userInfo'>
         <router-link :to="{name: 'login'}">登陆</router-link>
@@ -26,13 +26,14 @@
     <div class='content'>
       <div class='aside-left'>
         <transition name='fade' mode='out-in'>
-        <router-view :topics='topics'></router-view>
+          <router-view :topics='topics'></router-view>
         </transition>
         <pagination :total="total" :display='display' :current-page='current' @pagechange="getAllTopics" v-if='pageShow'></pagination>
       </div>
-      <div class='aside-right'>
-        <span class='name'></span>
-      </div>
+      <router-link :to="{name: 'personal'}" class='aside-right' v-if='userInfo' tag='div'>
+        <img :src='userInfo.avatar'>
+        <span class='name'>{{userInfo.name}}</span>
+        </router-link>
     </div>
   </div>
 </template>
@@ -41,13 +42,14 @@
 import { mapState } from 'vuex'
 import axios from 'axios'
 import pagination from '../base/pagination'
+import Toast from '../base/toast.js'
 export default {
   data() {
     return {
-      userInfo: '',
+      userInfo: {},
       topics: [],
       show: true,
-      total: 7,
+      total: 1,
       display: 5,
       current: 1,
       pageShow: true
@@ -85,13 +87,17 @@ export default {
     },
     getAllTopics(pageNumber = 1, pageSize = 5) {
       --pageNumber
+      this.$loading.show()
       let url = `/api/topic?pageNumber=${pageNumber}&pageSize=${pageSize}`
       axios.get(url).then(res => {
         if (res) res = res.data
         if (res.code === 0) {
           this.topics = res.topics
-          console.log(res.count)
           this.total = res.count
+          setTimeout(() => {
+            this.$loading.hide()
+            Toast('数据接收成功')
+          }, 500)
         }
       })
     }
@@ -99,7 +105,6 @@ export default {
   created() {
     this.getUserInfo()
     this.getAllTopics()
-    console.log(1)
   },
   components: {
     pagination
@@ -114,15 +119,16 @@ export default {
 .index {
   header {
     position: fixed;
-    right:0;
-    left:0;
-    top:0;
+    right: 0;
+    left: 0;
+    top: 0;
     display: flex;
     justify-content: space-between;
     background: $color-background;
     min-height: 50px;
     padding: 0 140px;
     box-shadow: 0px 1px 1px #ccc;
+    z-index: 888;
     .log {
       background: url('../common/img/logo.png') no-repeat;
       background-position: center;
@@ -201,8 +207,17 @@ export default {
     }
     .aside-right {
       background: $color-background;
-      min-width: 240px;
+      min-width: 200px;
       height: 200px;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+      img{
+        display: inline-block;
+        height:60px;
+        width:60px;
+        border-radius: 50%;
+      }
     }
   }
   .fade-enter-active,
@@ -210,10 +225,8 @@ export default {
     transition: opacity .4s
   }
   .fade-enter,
-  .fade-leave-to
-  {
+  .fade-leave-to {
     opacity: 0
   }
-  
 }
 </style>

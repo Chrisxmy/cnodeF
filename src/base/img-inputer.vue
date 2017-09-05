@@ -299,7 +299,7 @@
 
 
 <style lang='scss'>
-.img-inputer {
+.img-inputer{
   position: relative;
   display: inline-block;
   width: 100%;

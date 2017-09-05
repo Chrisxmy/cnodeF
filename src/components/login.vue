@@ -1,7 +1,7 @@
 <template>
   <div class='dialog'>
     <div class='login'>
-      <span class='close icon-qipao' @click='$router.go(-1)'></span>
+      <span class='close icon-cross' @click='$router.go(-1)'></span>
       <div class='logo'><img src='../common/img/logo.png'></div>
       <div class='select'>
         <span @click='change(1)' :class='{active:active}'>登陆</span>
@@ -9,13 +9,12 @@
         <div :class='line' class='line'></div>
       </div>
       <form>
-        <input type='text' v-model='userName' class='username' placeholder="用户名" v-show='!active'>
-        <input type='text' v-model='phoneNumber' class='username' placeholder="手机号">
+        <input type='text' v-model='userName' class='username' placeholder="用户名" >
         <input type='password' v-model='pwd' placeholder="密码">
         <input type='password' v-model='pwd2' placeholder="确认密码" v-show='!active'>
       </form>
       <sxButton v-show='active' @click.native='login' size='normal'>登陆</sxButton>
-      <sxButton v-show='!active' @click.native='sign'>注册</sxButton>
+      <sxButton v-show='!active' @click.native='sign' size='normal'>注册</sxButton>
     </div>
     <div class='mask'></div>
   </div>
@@ -23,13 +22,14 @@
 <script>
 import sxButton from './sxButton'
 import { _login, _sign } from '../api/index'
+import Toast from '../base/toast.js'
+import axios from 'axios'
 export default {
   data() {
     return {
       line: 'line-left',
       active: true,
       userName: '',
-      phoneNumber: '',
       pwd: '',
       pwd2: ''
     }
@@ -40,24 +40,43 @@ export default {
     sign() {
       let params = {
         username: this.userName,
-        password: this.pwd,
-        phoneNUmber: this.phoneNumber
+        password: this.pwd
       }
-      _sign(params).then(res => {
+      let url = '/api/users'
+      axios.post(url, params).then(res => {
+        console.log(res)
+        if (res) res = res.data
         if (res.code === 0) {
-          console.log(res)
+          Toast('注册成功')
+        } else {
+          Toast(res.msg)
         }
+      }).catch(e => {
+        console.log(e)
       })
     },
     login() {
       let params = {
         password: this.pwd,
-        phoneNUmber: this.phoneNumber
+        username: this.userName
       }
-      _login(params).then(res => {
+      let url = '/api/login'
+      axios.post(url, params).then(res => {
+        if (res) res = res.data
+        console.log(res)
         if (res.code === 0) {
           this.$store.dispatch('getLoginInfo', res.data)
+          Toast('登陆成功')
+          setTimeout(() => {
+            this.$router.push({
+              name: 'app'
+            })
+          }, 500)
+        } else {
+          Toast(res.msg)
         }
+      }).catch(e => {
+        Toast(e)
       })
     },
     change(idx) {
@@ -100,9 +119,10 @@ export default {
       position: absolute;
       top: 15px;
       right: 15px;
-      font-size: 30px;
+      font-size: 14px;
       display: inline-block;
       text-align: center;
+      color: #333;
       cursor: pointer;
       &:hover {
         transform: rotate(360deg);

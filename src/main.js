@@ -6,6 +6,10 @@ import store from './store/index'
 
 import { formatDate } from './common/utils/time.js'
 
+import loading from './base/loading/load.js'
+
+Vue.use(loading)
+
 Vue.config.productionTip = false
 
 Vue.filter('formatTime', function(time) {

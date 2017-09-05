@@ -6,6 +6,7 @@ import login from '@/components/login'
 import sendTopic from '@/components/sendTopic'
 import topicDetail from '@/components/topicDetail'
 import cardList from '@/components/cardList'
+import personal from '@/components/personal'
 
 Vue.use(Router)
 
@@ -16,7 +17,7 @@ export default new Router({
       path: '/',
       name: 'app',
       component: app,
-      redirect: '/xmy/index',
+      redirect: 'xmy/index',
       children: [
         {
           path: 'xmy',
@@ -34,6 +35,11 @@ export default new Router({
               component: cardList
             }
           ]
+        },
+        {
+          path: 'personal',
+          name: 'personal',
+          component: personal
         },
         {
           path: 'sendTopic',
