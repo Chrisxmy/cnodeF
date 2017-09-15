@@ -22,9 +22,8 @@
                     </span>
                     <span class='name' v-if='item.creator.name'>{{item.creator.name}}</span>
                 </div>
-                <h3>{{item.title}}</h3>
-                <p>
-                    {{item.content}}
+                <h3 style='font-size:16px'>{{item.title}}</h3>
+                <p v-html='item.content'>
                 </p>
                 <div class='icon'>
                     <span class='eye'>

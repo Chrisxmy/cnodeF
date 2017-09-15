@@ -8,6 +8,10 @@ import { formatDate } from './common/utils/time.js'
 
 import loading from './base/loading/load.js'
 
+import axios from 'axios'
+
+Vue.prototype.axios = axios
+
 Vue.use(loading)
 
 Vue.config.productionTip = false

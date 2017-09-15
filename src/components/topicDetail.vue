@@ -6,7 +6,7 @@
       <p>编辑于{{topicDetail.time | formatTime}}  作者{{topicDetail.creator.name}}</p>
       <img :src='topicDetail.titleImg'>
     </div>
-    <div class='artical'>{{topicDetail.content}}</div>
+    <div class='artical' v-html='topicDetail.content'></div>
   </div>
      <div class='replyList'>
       <div class='reply'>

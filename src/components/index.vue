@@ -40,13 +40,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import axios from 'axios'
 import pagination from '../base/pagination'
 import Toast from '../base/toast.js'
 export default {
   data() {
     return {
-      userInfo: {},
+      userInfo: '',
       topics: [],
       show: true,
       total: 1,
@@ -69,7 +68,7 @@ export default {
     getUserInfo() {
       if (this.loginInfo && this.loginInfo.user) {
         let url = `/api/users/${this.loginInfo.user._id}`
-        axios.get(url, {
+        this.axios.get(url, {
           headers: { 'Authorization': `auth ${this.loginInfo.token}` }
         }).then(res => {
           res = res.data
@@ -89,7 +88,7 @@ export default {
       --pageNumber
       this.$loading.show()
       let url = `/api/topic?pageNumber=${pageNumber}&pageSize=${pageSize}`
-      axios.get(url).then(res => {
+      this.axios.get(url).then(res => {
         if (res) res = res.data
         if (res.code === 0) {
           this.topics = res.topics

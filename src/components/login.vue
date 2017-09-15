@@ -23,7 +23,6 @@
 import sxButton from './sxButton'
 import { _login, _sign } from '../api/index'
 import Toast from '../base/toast.js'
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -43,7 +42,7 @@ export default {
         password: this.pwd
       }
       let url = '/api/users'
-      axios.post(url, params).then(res => {
+      this.axios.post(url, params).then(res => {
         console.log(res)
         if (res) res = res.data
         if (res.code === 0) {
@@ -61,7 +60,7 @@ export default {
         username: this.userName
       }
       let url = '/api/login'
-      axios.post(url, params).then(res => {
+      this.axios.post(url, params).then(res => {
         if (res) res = res.data
         console.log(res)
         if (res.code === 0) {

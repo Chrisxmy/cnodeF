@@ -10,14 +10,45 @@
         <img-inputer v-model='img'></img-inputer>
       </div>
       <input contenteditable="true" placeholder="请输入标题" v-model='title'></input>
-      <mavon-editor style="height: 100%" v-model='value'></mavon-editor>
+      <mavon-editor style="height: 100%"  @imgAdd="$imgAdd" @change='change'  
+      :toolbars = "{
+      bold: true, 
+      italic: true, 
+      header: true, 
+      underline: true, 
+      strikethrough: true, 
+      mark: true, 
+      superscript: true, 
+      subscript: true, 
+      quote: true, 
+      ol: true,
+      ul: true, 
+      link: true, 
+      code: true, 
+      table: true, 
+      fullscreen: true, 
+      readmodel: true, 
+      htmlcode: true, 
+      help: true,
+      undo: true, 
+      redo: true, 
+      trash: true, // 清空
+      save: true, // 保存（触发events中的save事件
+      navigation: true, // 导航目录
+      alignleft: true, // 左对齐
+      aligncenter: true, // 居中
+      alignright: true, // 右对齐
+      /* 2.2.1 */
+      subfield: true, // 单双栏模式
+      preview: true, // 预览
+      }"
+      ></mavon-editor>
     </div>
   </div>
 </template>
     <script>
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import axios from 'axios'
 import { mapState } from 'vuex'
 import imgInputer from '@/base/img-inputer'
 
@@ -36,6 +67,12 @@ export default {
     })
   },
   methods: {
+    change(value, render) {
+      this.value = render
+    },
+    $imgAdd(pos, $file) {
+      console.log(pos, $file)
+    },
     send() {
       if (this.loginInfo && this.loginInfo.user) {
         let url = `/api/topic`
@@ -50,8 +87,8 @@ export default {
         for (var key in params) {
           formData.append(key, params[key])
         }
-        axios.post(url, formData, {
-          headers: {'Authorization': `auth ${this.loginInfo.token}`}
+        this.axios.post(url, formData, {
+          headers: { 'Authorization': `auth ${this.loginInfo.token}` }
         }).then(res => {
           res = res.data
           if (res.code === 0) {
@@ -95,7 +132,7 @@ export default {
       opacity: 0.6;
       cursor: pointer;
       transition: .4s;
-      &:hover{
+      &:hover {
         border-color: #1892ed;
         color: #1892ed;
       }
